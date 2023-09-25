@@ -1,0 +1,545 @@
+[
+    {
+        "id": "5c378533defab0a1",
+        "type": "tab",
+        "label": "OPC UA FIELD",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "cef7db830c4b08a7",
+        "type": "OpcUa-Client",
+        "z": "5c378533defab0a1",
+        "endpoint": "cbf7238a2ee39b71",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 10,
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "folderName4PKI": "",
+        "name": "Read",
+        "x": 590,
+        "y": 360,
+        "wires": [
+            [
+                "62c0e85b58f01efa"
+            ]
+        ]
+    },
+    {
+        "id": "cf608585852da5fc",
+        "type": "OpcUa-Item",
+        "z": "5c378533defab0a1",
+        "item": "ns=8;i=692",
+        "datatype": "Byte Array",
+        "value": "",
+        "name": "SICK MPB",
+        "x": 410,
+        "y": 360,
+        "wires": [
+            [
+                "cef7db830c4b08a7"
+            ]
+        ]
+    },
+    {
+        "id": "62c0e85b58f01efa",
+        "type": "buffer-parser",
+        "z": "5c378533defab0a1",
+        "name": "parse Distance",
+        "data": "payload",
+        "dataType": "msg",
+        "specification": "spec",
+        "specificationType": "ui",
+        "items": [
+            {
+                "type": "floatle",
+                "name": "Temperatur",
+                "offset": 0,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "Z-RMS",
+                "offset": 4,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "Y-RMS",
+                "offset": 8,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "floatle",
+                "name": "X-RMS",
+                "offset": 12,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            }
+        ],
+        "swap1": "swap32",
+        "swap2": "",
+        "swap3": "",
+        "swap1Type": "swap",
+        "swap2Type": "swap",
+        "swap3Type": "swap",
+        "msgProperty": "payload",
+        "msgPropertyType": "str",
+        "resultType": "value",
+        "resultTypeType": "return",
+        "multipleResult": true,
+        "fanOutMultipleResult": true,
+        "setTopic": true,
+        "outputs": 4,
+        "x": 800,
+        "y": 360,
+        "wires": [
+            [
+                "cc946a82d82b35cc"
+            ],
+            [
+                "627f2de193ac063e"
+            ],
+            [
+                "2ac46c3dd888356e"
+            ],
+            [
+                "1fef98b5c1327910"
+            ]
+        ]
+    },
+    {
+        "id": "b0ce4015d0814e51",
+        "type": "comment",
+        "z": "5c378533defab0a1",
+        "name": "Port X1",
+        "info": "",
+        "x": 70,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "4ce9ed89b60e52e9",
+        "type": "comment",
+        "z": "5c378533defab0a1",
+        "name": "Port X2",
+        "info": "",
+        "x": 70,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "e6af486f59e8150f",
+        "type": "comment",
+        "z": "5c378533defab0a1",
+        "name": "Port X3",
+        "info": "",
+        "x": 70,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "1fef98b5c1327910",
+        "type": "ui_chart",
+        "z": "5c378533defab0a1",
+        "name": "",
+        "group": "a0e8153780b32252",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "RMS X",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1080,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cc946a82d82b35cc",
+        "type": "ui_gauge",
+        "z": "5c378533defab0a1",
+        "name": "",
+        "group": "a0e8153780b32252",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperatur",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1090,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "2ac46c3dd888356e",
+        "type": "ui_chart",
+        "z": "5c378533defab0a1",
+        "name": "",
+        "group": "a0e8153780b32252",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "RMS Y ",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1080,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "627f2de193ac063e",
+        "type": "ui_chart",
+        "z": "5c378533defab0a1",
+        "name": "",
+        "group": "a0e8153780b32252",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "RMS Z",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1080,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b0d9ed72b32451d4",
+        "type": "inject",
+        "z": "5c378533defab0a1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 360,
+        "wires": [
+            [
+                "cf608585852da5fc"
+            ]
+        ]
+    },
+    {
+        "id": "25e8babfc213bb44",
+        "type": "OpcUa-Item",
+        "z": "5c378533defab0a1",
+        "item": "ns=8;i=690",
+        "datatype": "Byte Array",
+        "value": "",
+        "name": "LEUZE ",
+        "x": 390,
+        "y": 200,
+        "wires": [
+            [
+                "21105e2730450a08"
+            ]
+        ]
+    },
+    {
+        "id": "c562b98862cca61c",
+        "type": "inject",
+        "z": "5c378533defab0a1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 200,
+        "wires": [
+            [
+                "25e8babfc213bb44"
+            ]
+        ]
+    },
+    {
+        "id": "21105e2730450a08",
+        "type": "OpcUa-Client",
+        "z": "5c378533defab0a1",
+        "endpoint": "cbf7238a2ee39b71",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 10,
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "folderName4PKI": "",
+        "name": "Read",
+        "x": 590,
+        "y": 200,
+        "wires": [
+            [
+                "b2b1547c29d06cb1"
+            ]
+        ]
+    },
+    {
+        "id": "b2b1547c29d06cb1",
+        "type": "buffer-parser",
+        "z": "5c378533defab0a1",
+        "name": "Distance",
+        "data": "payload",
+        "dataType": "msg",
+        "specification": "spec",
+        "specificationType": "ui",
+        "items": [
+            {
+                "type": "int16be",
+                "name": "Distance",
+                "offset": 0,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            }
+        ],
+        "swap1": "",
+        "swap2": "",
+        "swap3": "",
+        "swap1Type": "swap",
+        "swap2Type": "swap",
+        "swap3Type": "swap",
+        "msgProperty": "payload",
+        "msgPropertyType": "str",
+        "resultType": "value",
+        "resultTypeType": "return",
+        "multipleResult": true,
+        "fanOutMultipleResult": true,
+        "setTopic": true,
+        "outputs": 1,
+        "x": 780,
+        "y": 200,
+        "wires": [
+            [
+                "d313e1463525bfd9"
+            ]
+        ]
+    },
+    {
+        "id": "d313e1463525bfd9",
+        "type": "ui_chart",
+        "z": "5c378533defab0a1",
+        "name": "",
+        "group": "28c3eccccdf15a93",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "Distance",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1080,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cbf7238a2ee39b71",
+        "type": "OpcUa-Endpoint",
+        "endpoint": "opc.tcp://192.168.2.128:4840",
+        "secpol": "None",
+        "secmode": "None",
+        "none": false,
+        "login": true,
+        "usercert": false,
+        "usercertificate": "",
+        "userprivatekey": ""
+    },
+    {
+        "id": "a0e8153780b32252",
+        "type": "ui_group",
+        "name": "Sick Sensor",
+        "tab": "269d9864044925c2",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "28c3eccccdf15a93",
+        "type": "ui_group",
+        "name": "Leuze",
+        "tab": "269d9864044925c2",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "269d9864044925c2",
+        "type": "ui_tab",
+        "name": "IO-Field",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
